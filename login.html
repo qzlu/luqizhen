@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <label for="user">用户名</label>
+        <input type="text" id="user">
+    </div>
+    <div>
+        <label for="password">密 码</label>
+        <input type="password" id="password">
+    </div>
+    <div>
+        <button id="login">登录</button>
+        <button id="register">
+            <a href="register.html">注册</a>
+        </button>
+    </div>
+</body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    $(function () {
+        $("#login").click(function () {
+            if ($("#user").val().length == 0) {
+                return alert("请输入内容!");
+            }
+            if ($("#password").val().length == 0) {
+                return alert("请输入密码!");
+            }
+
+            $.ajax({
+                url: "http://localhost:3000/login",
+                type: "POST",
+                data: {
+                    username: $("#user").val(),
+                    password: $("#password").val()
+                },
+                success: function (res) {
+                    console.log(res);
+                   if(res=="该用户不存在"){
+                      return alert("登录失败!")
+                   }
+                    alert("登录成功!")
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+
+        })
+    });
+</script>
+</html>
